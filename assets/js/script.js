@@ -113,6 +113,37 @@ function printScheduleData(){
 // Take an array of schedules and saves them in localStorage.
 function saveScheduleToStorage(schedules){
     localStorage.setItem('schedules',JSON.stringify(schedules));
+
+}
+
+
+// Show message on the top of the list after save
+function showMessage(){
+  
+  var message = $('<div>');
+  message.addClass('text-center align-middle my-3 bg-success p-2 text-white bg-opacity-75 w-25 m-auto');  
+  message.attr('id','message');
+  message.text("Schedule is Saved!✔");
+
+  containerEl.prepend(message);
+
+  clearMessage();
+}
+
+// Clear the message after certain time
+function clearMessage() {
+  
+  var time = 3;  // 3 seconds
+  var timerInterval = setInterval(function() {
+    time--;
+    
+    if(time === 0) {
+      clearInterval(timerInterval);
+      containerEl.empty();
+      printScheduleData();
+    }
+
+  }, 1000);
 }
 
 // Adds a schedule to local storage and prints the schedule data
@@ -144,19 +175,20 @@ function handleSaveSchedule(){
 
   // print new schedule data
   printScheduleData();
-
+  
+  // show save message
+  showMessage();
 }
 
 
 printScheduleData();
-// When click the save button 
 
+// When click the save button 
 containerEl.on('click', '.btn', handleSaveSchedule);
 
 displaytime();
 
 setInterval(displaytime, 1000);
-
 
 
 
