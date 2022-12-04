@@ -33,7 +33,21 @@ var total = end-begin+1; // total working hour : 9 hours
 
 // display current time
 function displaytime(){
-  var showDate = dayjs().format('dddd, MMMM D ');
+
+  var showDate = dayjs().format('dddd, MMMM D');
+  var day = dayjs().format('D').slice(-1);
+  
+  // If day finishes with '1' add 'st', with '2' add 'nd', others add 'th'
+  if(day === '1'){
+    day = 'st';
+  } else if(day === '2'){
+    day = 'nd';
+  } else {
+    day = 'th';
+  }
+
+  showDate += day;
+
   currentDayEl.text(showDate);   
 }
 
